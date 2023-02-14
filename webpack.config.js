@@ -9,6 +9,7 @@
 module.exports = (env, argv) => {
   const path = require('path');
   const TerserPlugin = require('terser-webpack-plugin');
+  const WrapperPlugin = require('wrapper-webpack-plugin');
   const { LicenseWebpackPlugin } = require('license-webpack-plugin');
   const pkg = require('./package.json');
 
@@ -64,6 +65,10 @@ module.exports = (env, argv) => {
       }),
 
       new LicenseWebpackPlugin(),
+      new WrapperPlugin({
+        test: /\.js$/,
+        footer: 'export default EditorJS;',
+      }),
     ],
 
     module: {
